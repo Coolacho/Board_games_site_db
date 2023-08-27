@@ -2,13 +2,6 @@ DROP DATABASE IF EXISTS board_games_site;
 CREATE DATABASE board_games_site;
 USE board_games_site;
 
-CREATE TABLE accounts(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(20) NOT NULL,
-    date_of_creation DATE NOT NULL
-);
-
 CREATE TABLE addresses(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     address VARCHAR(255) NOT NULL UNIQUE,
@@ -31,6 +24,16 @@ CREATE TABLE customers(
     last_name VARCHAR(50) NOT NULL,
     contact_info_id INT NOT NULL UNIQUE,
     FOREIGN KEY (contact_info_id) REFERENCES contacts_info(id)
+);
+
+CREATE TABLE accounts(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(20) NOT NULL,
+    type ENUM ("Admin", "Customer") NOT NULL,
+    date_of_creation DATE NOT NULL,
+    customer_id INT NULL UNIQUE DEFAULT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
 CREATE TABLE suppliers(
