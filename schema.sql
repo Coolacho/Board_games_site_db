@@ -13,7 +13,7 @@ CREATE TABLE addresses(
 CREATE TABLE contacts_info(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     email_address VARCHAR(100) NOT NULL UNIQUE,
-    telephone VARCHAR(10) NOT NULL UNIQUE,
+    telephone VARCHAR(20) NOT NULL UNIQUE,
     address_id INT NOT NULL,
     FOREIGN KEY (address_id) REFERENCES addresses(id)
 );
@@ -63,13 +63,15 @@ CREATE TABLE publishers(
 CREATE TABLE products(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
-    description VARCHAR(255) NOT NULL UNIQUE, #Saves a file path to a txt file
+    type ENUM ("Board game", "Expansion") NOT NULL,
+    description_path VARCHAR(255) NOT NULL UNIQUE, #Saves a file path to a txt file
     price FLOAT NOT NULL,
+    discount INT NOT NULL DEFAULT 0,
     rating FLOAT(1) NOT NULL DEFAULT 0.0,
     min_player_cnt INT NOT NULL,
     max_player_cnt INT NOT NULL,
-    min_play_time TIME NOT NULL,
-    max_play_time TIME NOT NULL,
+    min_play_time INT NOT NULL,
+    max_play_time INT NOT NULL, #Both times are represented in minutes
     min_player_age INT NOT NULL,
     publisher_id INT NOT NULL,
     FOREIGN KEY (publisher_id) REFERENCES publishers(id)
