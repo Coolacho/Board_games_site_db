@@ -3,7 +3,7 @@ CREATE DATABASE board_games_site;
 USE board_games_site;
 
 CREATE TABLE accounts(
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(20) NOT NULL,
     type ENUM ("Admin", "Customer") NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE accounts(
 );
 
 CREATE TABLE addresses(
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     address VARCHAR(255) NOT NULL UNIQUE,
     postal_code VARCHAR(15) NOT NULL,
     city VARCHAR(255) NOT NULL,
@@ -19,10 +19,10 @@ CREATE TABLE addresses(
 );
 
 CREATE TABLE customers(
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
-    account_id BIGINT UNSIGNED NOT NULL UNIQUE,
+    account_id BIGINT NOT NULL UNIQUE,
     FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
 
@@ -32,11 +32,11 @@ CREATE TABLE suppliers(
 );
 
 CREATE TABLE contacts_info(
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email_address VARCHAR(100) NOT NULL UNIQUE,
     telephone VARCHAR(20) NOT NULL UNIQUE,
-    address_id BIGINT UNSIGNED NOT NULL,
-    customer_id BIGINT UNSIGNED NULL DEFAULT NULL,
+    address_id BIGINT NOT NULL,
+    customer_id BIGINT NULL DEFAULT NULL,
     supplier_id INT NULL DEFAULT NULL,
     FOREIGN KEY (address_id) REFERENCES addresses(id),
     FOREIGN KEY (customer_id) REFERENCES customers(id),
@@ -44,14 +44,14 @@ CREATE TABLE contacts_info(
 );
 
 CREATE TABLE orders(
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     date_made DATE NOT NULL,
     status ENUM("In progress", "Canceled", "Completed") DEFAULT "In progress",
     date_completed DATE NULL DEFAULT NULL,
     total FLOAT NOT NULL,
     is_payed BOOLEAN NOT NULL DEFAULT FALSE,
     payment_method ENUM("On receive", "By card"),
-    customer_id BIGINT UNSIGNED NOT NULL,
+    customer_id BIGINT NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
@@ -83,7 +83,7 @@ CREATE TABLE categories(
 );
 
 CREATE TABLE product_categories(
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
     category_id INT NOT NULL,
     FOREIGN KEY (product_id) REFERENCES products(id),
@@ -92,15 +92,15 @@ CREATE TABLE product_categories(
 );
 
 CREATE TABLE images(
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     path VARCHAR(255) NOT NULL UNIQUE,
     product_id INT NOT NULL,
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
 CREATE TABLE order_products(
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    order_id BIGINT UNSIGNED NOT NULL,
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT NOT NULL,
     product_id INT NOT NULL,
     quantity INT NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id),
@@ -109,7 +109,7 @@ CREATE TABLE order_products(
 );
 
 CREATE TABLE product_suppliers(
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
     supplier_id INT NOT NULL,
     quantity INT NOT NULL,
