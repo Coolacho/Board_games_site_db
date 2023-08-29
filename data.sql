@@ -1,5 +1,12 @@
 USE board_games_site;
 
+INSERT INTO accounts (username, password, type, date_of_creation) VALUES
+('admin', 'admin', 'Admin', DATE(NOW())),
+('john_doe', 'p@ssw0rd', 'Customer', DATE(NOW())),
+('jane_smith', 'secure123', 'Customer', DATE(NOW())),
+('david_wilson', 'qwerty456', 'Customer', DATE(NOW())),
+('emily_miller', 'letmein', 'Customer', DATE(NOW()));
+
 INSERT INTO addresses (address, postal_code, city, country) VALUES
 ('123 Main Street', '12345', 'Exampleville', 'United States'),
 ('456 Elm Avenue', '67890', 'Sampletown', 'Canada'),
@@ -10,34 +17,27 @@ INSERT INTO addresses (address, postal_code, city, country) VALUES
 ('444 Mountain Road', '86420', 'Hikeridge', 'New Zealand'),
 ('555 River Street', '57246', 'Aquatown', 'Spain');
 
-INSERT INTO contacts_info (email_address, telephone, address_id) VALUES
-('john.doe@example.com', '+359 88 123 4567', 1),
-('jane.smith@example.com', '+359 88 234 5678', 2),
-('david.wilson@example.com', '+359 88 567 8901', 3),
-('emily.miller@example.com', '+359 88 678 9012', 4),
-('contact@supplier1.com', '+359 2 345 6789', 5),
-('contact@supplier2.com', '+359 2 456 7890', 6),
-('contact@supplier3.com', '+359 2 789 0123', 7),
-('contact@supplier4.com', '+359 2 890 1234', 8);
+INSERT INTO customers (first_name, last_name, account_id) VALUES
+('John', 'Doe', 2),
+('Jane', 'Smith', 3),
+('David', 'Wilson', 4),
+('Emily', 'Miller', 5);
 
-INSERT INTO customers (first_name, last_name, contact_info_id) VALUES
-('John', 'Doe', 1),
-('Jane', 'Smith', 2),
-('David', 'Wilson', 3),
-('Emily', 'Miller', 4);
+INSERT INTO suppliers (name) VALUES
+('Supplier A'),
+('Supplier B'),
+('Supplier C'),
+('Supplier D');
 
-INSERT INTO accounts (username, password, type, date_of_creation, customer_id) VALUES
-('admin', 'admin', 'Admin', DATE(NOW()), NULL),
-('john_doe', 'p@ssw0rd', 'Customer', DATE(NOW()), 1),
-('jane_smith', 'secure123', 'Customer', DATE(NOW()), 2),
-('david_wilson', 'qwerty456', 'Customer', DATE(NOW()), 3),
-('emily_miller', 'letmein', 'Customer', DATE(NOW()), 4);
-
-INSERT INTO suppliers (name, contact_info_id) VALUES
-('Supplier A', 5),
-('Supplier B', 6),
-('Supplier C', 7),
-('Supplier D', 8);
+INSERT INTO contacts_info (email_address, telephone, address_id, customer_id, supplier_id) VALUES
+('john.doe@example.com', '+359 88 123 4567', 1, 1, NULL),
+('jane.smith@example.com', '+359 88 234 5678', 2, 2, NULL),
+('david.wilson@example.com', '+359 88 567 8901', 3, 3, NULL),
+('emily.miller@example.com', '+359 88 678 9012', 4, 4, NULL),
+('contact@supplier1.com', '+359 2 345 6789', 5, NULL, 1),
+('contact@supplier2.com', '+359 2 456 7890', 6, NULL, 2),
+('contact@supplier3.com', '+359 2 789 0123', 7, NULL, 3),
+('contact@supplier4.com', '+359 2 890 1234', 8, NULL, 4);
 
 INSERT INTO orders (date_made, total, payment_method, customer_id) VALUES
 ('2023-08-01', 145.00, 'On receive', 1),
@@ -129,53 +129,29 @@ INSERT INTO product_categories (product_id, category_id) VALUES
 (11, 7),
 (11, 8);
 
-INSERT INTO images (path) VALUES
-('/src/main/resources/static/images/scythe/box.jpg'),
-('/src/main/resources/static/images/scythe/content.jpg'),
-('/src/main/resources/static/images/expeditions/box.jpg'),
-('/src/main/resources/static/images/expeditions/content.jpg'),
-('/src/main/resources/static/images/brass_birmingham/box.jpg'),
-('/src/main/resources/static/images/brass_birmingham/content.jpg'),
-('/src/main/resources/static/images/sub_terra/box.jpg'),
-('/src/main/resources/static/images/sub_terra/content.jpg'),
-('/src/main/resources/static/images/sub_terra_investigation/box.jpg'),
-('/src/main/resources/static/images/sub_terra_investigation/content.jpg'),
-('/src/main/resources/static/images/sub_terra_extraction/box.jpg'),
-('/src/main/resources/static/images/sub_terra_extraction/content.jpg'),
-('/src/main/resources/static/images/sub_terra_annihilation/box.jpg'),
-('/src/main/resources/static/images/sub_terra_annihilation/content.jpg'),
-('/src/main/resources/static/images/sub_terra_incubation/box.jpg'),
-('/src/main/resources/static/images/sub_terra_incubation/content.jpg'),
-('/src/main/resources/static/images/mansions_of_madness_second_edition/box.jpg'),
-('/src/main/resources/static/images/mansions_of_madness_second_edition/content.jpg'),
-('/src/main/resources/static/images/the_grimm_forest/box.jpg'),
-('/src/main/resources/static/images/the_grimm_forest/content.jpg'),
-('/src/main/resources/static/images/small_world/box.jpg'),
-('/src/main/resources/static/images/small_world/content.jpg');
-
-INSERT INTO product_images (product_id, image_id) VALUES
-(1, 1),
-(1, 2),
-(2, 3),
-(2, 4),
-(3, 5),
-(3, 6),
-(4, 7),
-(4, 8),
-(5, 9),
-(5, 10),
-(6, 11),
-(6, 12),
-(7, 13),
-(7, 14),
-(8, 15),
-(8, 16),
-(9, 17),
-(9, 18),
-(10, 19),
-(10, 20),
-(11, 21),
-(11, 22);
+INSERT INTO images (path, product_id) VALUES
+('/src/main/resources/static/images/scythe/box.jpg', 1),
+('/src/main/resources/static/images/scythe/content.jpg', 1),
+('/src/main/resources/static/images/expeditions/box.jpg', 2),
+('/src/main/resources/static/images/expeditions/content.jpg', 2),
+('/src/main/resources/static/images/brass_birmingham/box.jpg', 3),
+('/src/main/resources/static/images/brass_birmingham/content.jpg', 3),
+('/src/main/resources/static/images/sub_terra/box.jpg', 4),
+('/src/main/resources/static/images/sub_terra/content.jpg', 4),
+('/src/main/resources/static/images/sub_terra_investigation/box.jpg', 5),
+('/src/main/resources/static/images/sub_terra_investigation/content.jpg', 5),
+('/src/main/resources/static/images/sub_terra_extraction/box.jpg', 6),
+('/src/main/resources/static/images/sub_terra_extraction/content.jpg', 6),
+('/src/main/resources/static/images/sub_terra_annihilation/box.jpg', 7),
+('/src/main/resources/static/images/sub_terra_annihilation/content.jpg', 7),
+('/src/main/resources/static/images/sub_terra_incubation/box.jpg', 8),
+('/src/main/resources/static/images/sub_terra_incubation/content.jpg', 8),
+('/src/main/resources/static/images/mansions_of_madness_second_edition/box.jpg', 9),
+('/src/main/resources/static/images/mansions_of_madness_second_edition/content.jpg', 9),
+('/src/main/resources/static/images/the_grimm_forest/box.jpg', 10),
+('/src/main/resources/static/images/the_grimm_forest/content.jpg', 10),
+('/src/main/resources/static/images/small_world/box.jpg', 11),
+('/src/main/resources/static/images/small_world/content.jpg', 11);
 
 INSERT INTO order_products (order_id, product_id, quantity) VALUES
 (1, 1, 1),
@@ -188,7 +164,7 @@ INSERT INTO order_products (order_id, product_id, quantity) VALUES
 (5, 8, 1),
 (6, 3, 1);
 
-INSERT INTO supply (product_id, supplier_id, quantity) VALUES
+INSERT INTO product_suppliers (product_id, supplier_id, quantity) VALUES
 (1, 1, 3),
 (2, 2, 2),
 (3, 3, 4),

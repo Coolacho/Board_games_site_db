@@ -2,56 +2,56 @@ DROP DATABASE IF EXISTS board_games_site;
 CREATE DATABASE board_games_site;
 USE board_games_site;
 
+CREATE TABLE accounts(
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(20) NOT NULL,
+    type ENUM ("Admin", "Customer") NOT NULL,
+    date_of_creation DATE NOT NULL
+);
+
 CREATE TABLE addresses(
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     address VARCHAR(255) NOT NULL UNIQUE,
     postal_code VARCHAR(15) NOT NULL,
     city VARCHAR(255) NOT NULL,
     country VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE contacts_info(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    email_address VARCHAR(100) NOT NULL UNIQUE,
-    telephone VARCHAR(20) NOT NULL UNIQUE,
-    address_id INT NOT NULL,
-    FOREIGN KEY (address_id) REFERENCES addresses(id)
-);
-
 CREATE TABLE customers(
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
-    contact_info_id INT NOT NULL UNIQUE,
-    FOREIGN KEY (contact_info_id) REFERENCES contacts_info(id)
-);
-
-CREATE TABLE accounts(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(20) NOT NULL,
-    type ENUM ("Admin", "Customer") NOT NULL,
-    date_of_creation DATE NOT NULL,
-    customer_id INT NULL UNIQUE DEFAULT NULL,
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
+    account_id BIGINT UNSIGNED NOT NULL UNIQUE,
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
 
 CREATE TABLE suppliers(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    contact_info_id INT NOT NULL UNIQUE,
-    FOREIGN KEY (contact_info_id) REFERENCES contacts_info(id)
+    name VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE contacts_info(
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email_address VARCHAR(100) NOT NULL UNIQUE,
+    telephone VARCHAR(20) NOT NULL UNIQUE,
+    address_id BIGINT UNSIGNED NOT NULL,
+    customer_id BIGINT UNSIGNED NULL DEFAULT NULL,
+    supplier_id INT NULL DEFAULT NULL,
+    FOREIGN KEY (address_id) REFERENCES addresses(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
 );
 
 CREATE TABLE orders(
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     date_made DATE NOT NULL,
     status ENUM("In progress", "Canceled", "Completed") DEFAULT "In progress",
     date_completed DATE NULL DEFAULT NULL,
     total FLOAT NOT NULL,
     is_payed BOOLEAN NOT NULL DEFAULT FALSE,
     payment_method ENUM("On receive", "By card"),
-    customer_id INT NOT NULL,
+    customer_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
@@ -83,7 +83,7 @@ CREATE TABLE categories(
 );
 
 CREATE TABLE product_categories(
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
     category_id INT NOT NULL,
     FOREIGN KEY (product_id) REFERENCES products(id),
@@ -92,21 +92,15 @@ CREATE TABLE product_categories(
 );
 
 CREATE TABLE images(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    path VARCHAR(255) NOT NULL UNIQUE
-);
-
-CREATE TABLE product_images(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	product_id INT NOT NULL,
-    image_id INT NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (image_id) REFERENCES images(id)
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    path VARCHAR(255) NOT NULL UNIQUE,
+    product_id INT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
 CREATE TABLE order_products(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT UNSIGNED NOT NULL,
     product_id INT NOT NULL,
     quantity INT NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id),
@@ -114,8 +108,8 @@ CREATE TABLE order_products(
     CONSTRAINT UNIQUE (order_id, product_id)
 );
 
-CREATE TABLE supply(
-	id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE product_suppliers(
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
     supplier_id INT NOT NULL,
     quantity INT NOT NULL,
