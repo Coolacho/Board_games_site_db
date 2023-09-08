@@ -73,6 +73,7 @@ CREATE TABLE products(
     min_play_time INT NOT NULL,
     max_play_time INT NOT NULL, #Both times are represented in minutes
     min_player_age INT NOT NULL,
+    date_added DATE NOT NULL DEFAULT (CURRENT_DATE),
     publisher_id INT NOT NULL,
     FOREIGN KEY (publisher_id) REFERENCES publishers(id)
 );

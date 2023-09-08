@@ -55,18 +55,18 @@ INSERT INTO publishers (name) VALUES
 ('Inside the box'),
 ('Days of Wonder');
 
-INSERT INTO products (name, type, description_path, price, min_player_cnt, max_player_cnt, min_play_time, max_play_time, min_player_age, publisher_id) VALUES
-('Scythe', 'Board game', '/src/main/resources/static/descriptions/scythe/description.txt', 145.00, 1, 5, 90, 115, 14, 3),
-('Expeditions', 'Board game', '/src/main/resources/static/descriptions/expeditions/description.txt', 146.00, 1, 5, 60, 90, 14, 3),
-('Brass: Birmingham', 'Board game', '/src/main/resources/static/descriptions/brass_birmingham/description.txt', 135.00, 2, 4, 60, 120, 14, 4),
-('Sub Terra', 'Board game', '/src/main/resources/static/descriptions/sub_terra/description.txt', 95.00, 1, 6, 60, 90, 10, 5),
-('Sub Terra: Investigation', 'Expansion', '/src/main/resources/static/descriptions/sub_terra_investigation/description.txt', 42.00, 1, 6, 45, 90, 10, 5),
-('Sub Terra: Extraction', 'Expansion', '/src/main/resources/static/descriptions/sub_terra_extraction/description.txt', 42.00, 1, 6, 45, 90, 10, 5),
-('Sub Terra: Annihilation', 'Expansion', '/src/main/resources/static/descriptions/sub_terra_annihilation/description.txt', 42.00, 1, 6, 45, 90, 10, 5),
-('Sub Terra: Incubation', 'Expansion', '/src/main/resources/static/descriptions/sub_terra_incubation/description.txt', 42.00, 1, 6, 45, 90, 10, 5),
-('Mansions of Madness: Second edition', 'Board game', '/src/main/resources/static/descriptions/mansions_of_madness_second_edition/description.txt', 229.00, 1, 5, 120, 180, 14, 2),
-('The Grimm Forest', 'Board game', '/src/main/resources/static/descriptions/the_grimm_forest/description.txt', 89.00, 2, 4, 45, 60, 8, 1),
-('Small World', 'Board game', '/src/main/resources/static/descriptions/small_world/description.txt', 110.00, 2, 5, 40, 80, 8, 6);
+INSERT INTO products (name, type, description_path, price, discount, min_player_cnt, max_player_cnt, min_play_time, max_play_time, min_player_age, publisher_id) VALUES
+('Scythe', 'Board game', '@/assets/descriptions/scythe/description.txt', 145.00, 0, 1, 5, 90, 115, 14, 3),
+('Expeditions', 'Board game', '@/assets/descriptions/expeditions/description.txt', 146.00, 0, 1, 5, 60, 90, 14, 3),
+('Brass: Birmingham', 'Board game', '@/assets/descriptions/brass_birmingham/description.txt', 135.00, 0, 2, 4, 60, 120, 14, 4),
+('Sub Terra', 'Board game', '@/assets/descriptions/sub_terra/description.txt', 95.00, 5, 1, 6, 60, 90, 10, 5),
+('Sub Terra: Investigation', 'Expansion', '@/assets/descriptions/sub_terra_investigation/description.txt', 42.00, 10, 1, 6, 45, 90, 10, 5),
+('Sub Terra: Extraction', 'Expansion', '@/assets/descriptions/sub_terra_extraction/description.txt', 42.00, 10, 1, 6, 45, 90, 10, 5),
+('Sub Terra: Annihilation', 'Expansion', '@/assets/descriptions/sub_terra_annihilation/description.txt', 42.00, 10, 1, 6, 45, 90, 10, 5),
+('Sub Terra: Incubation', 'Expansion', '@/assets/static/descriptions/sub_terra_incubation/description.txt', 42.00, 10, 1, 6, 45, 90, 10, 5),
+('Mansions of Madness: Second edition', 'Board game', '@/assets/descriptions/mansions_of_madness_second_edition/description.txt', 229.00, 0, 1, 5, 120, 180, 14, 2),
+('The Grimm Forest', 'Board game', '@/assets/descriptions/the_grimm_forest/description.txt', 89.00, 0, 2, 4, 45, 60, 8, 1),
+('Small World', 'Board game', '@/assets/descriptions/small_world/description.txt', 110.00, 0, 2, 5, 40, 80, 8, 6);
 
 INSERT INTO categories (name) VALUES
 ('Family games'),
@@ -130,28 +130,28 @@ INSERT INTO product_categories (product_id, category_id) VALUES
 (11, 8);
 
 INSERT INTO images (path, product_id) VALUES
-('/src/main/resources/static/images/scythe/box.jpg', 1),
-('/src/main/resources/static/images/scythe/content.jpg', 1),
-('/src/main/resources/static/images/expeditions/box.jpg', 2),
-('/src/main/resources/static/images/expeditions/content.jpg', 2),
-('/src/main/resources/static/images/brass_birmingham/box.jpg', 3),
-('/src/main/resources/static/images/brass_birmingham/content.jpg', 3),
-('/src/main/resources/static/images/sub_terra/box.jpg', 4),
-('/src/main/resources/static/images/sub_terra/content.jpg', 4),
-('/src/main/resources/static/images/sub_terra_investigation/box.jpg', 5),
-('/src/main/resources/static/images/sub_terra_investigation/content.jpg', 5),
-('/src/main/resources/static/images/sub_terra_extraction/box.jpg', 6),
-('/src/main/resources/static/images/sub_terra_extraction/content.jpg', 6),
-('/src/main/resources/static/images/sub_terra_annihilation/box.jpg', 7),
-('/src/main/resources/static/images/sub_terra_annihilation/content.jpg', 7),
-('/src/main/resources/static/images/sub_terra_incubation/box.jpg', 8),
-('/src/main/resources/static/images/sub_terra_incubation/content.jpg', 8),
-('/src/main/resources/static/images/mansions_of_madness_second_edition/box.jpg', 9),
-('/src/main/resources/static/images/mansions_of_madness_second_edition/content.jpg', 9),
-('/src/main/resources/static/images/the_grimm_forest/box.jpg', 10),
-('/src/main/resources/static/images/the_grimm_forest/content.jpg', 10),
-('/src/main/resources/static/images/small_world/box.jpg', 11),
-('/src/main/resources/static/images/small_world/content.jpg', 11);
+('@/assets/images/scythe/box.jpg', 1),
+('@/assets/images/scythe/content.jpg', 1),
+('@/assets/images/expeditions/box.jpg', 2),
+('@/assets/images/expeditions/content.jpg', 2),
+('@/assets/images/brass_birmingham/box.jpg', 3),
+('@/assets/images/brass_birmingham/content.jpg', 3),
+('@/assets/images/sub_terra/box.jpg', 4),
+('@/assets/images/sub_terra/content.jpg', 4),
+('@/assets/images/sub_terra_investigation/box.jpg', 5),
+('@/assets/images/sub_terra_investigation/content.jpg', 5),
+('@/assets/images/sub_terra_extraction/box.jpg', 6),
+('@/assets/images/sub_terra_extraction/content.jpg', 6),
+('@/assets/images/sub_terra_annihilation/box.jpg', 7),
+('@/assets/images/sub_terra_annihilation/content.jpg', 7),
+('@/assets/images/sub_terra_incubation/box.jpg', 8),
+('@/assets/images/sub_terra_incubation/content.jpg', 8),
+('@/assets/images/mansions_of_madness_second_edition/box.jpg', 9),
+('@/assets/images/mansions_of_madness_second_edition/content.jpg', 9),
+('@/assets/images/the_grimm_forest/box.jpg', 10),
+('@/assets/images/the_grimm_forest/content.jpg', 10),
+('@/assets/images/small_world/box.jpg', 11),
+('@/assets/images/small_world/content.jpg', 11);
 
 INSERT INTO order_products (order_id, product_id, quantity) VALUES
 (1, 1, 1),
